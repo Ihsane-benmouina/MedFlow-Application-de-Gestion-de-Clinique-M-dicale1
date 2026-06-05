@@ -28,4 +28,15 @@ class SpecialiteRepository
         return $result ?: null;
     }
 
+        public function create(string $nom, string $description): int
+    {
+        $sql = "INSERT INTO specialites (nom, description) VALUES (:nom, :description)";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            'nom' => $nom,
+            'description' => $description,
+        ]);
+        return (int) $this->pdo->lastInsertId();
+    }
+
 }

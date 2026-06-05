@@ -93,6 +93,7 @@ class AdminController
             header('Location: index.php?action=admin_dashboard');
             exit();
         }
+        }
 
 
          public function modifierMedecin(): void
@@ -126,6 +127,27 @@ class AdminController
             exit();
         }
     }
+
+        public function toggleMedecin(): void
+    {
+        AuthMiddleware::requireRole('admin');
+
+        $idMedecin = (int) ($_GET['id'] ?? 0);
+        $action = $_GET['toggle'] ?? '';
+
+        if ($idMedecin > 0) {
+            $actif = ($action === 'activer');
+            $this->medecinRepository->toggleActif($idMedecin, $actif);
+            $_SESSION['success_msg'] = $actif ? "Médecin activé." : "Médecin désactivé.";
+        }
+
+        header('Location: index.php?action=admin_dashboard');
+        exit();
+    }
+
+
+      
+
     }
 
 
@@ -135,4 +157,3 @@ class AdminController
 
 
 
-}    

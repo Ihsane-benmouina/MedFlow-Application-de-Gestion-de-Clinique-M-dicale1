@@ -105,6 +105,7 @@ class PatientController
         exit();
     }
 
+    
     /**
      * Télécharger une ordonnance en PDF simplifié (texte)
      */

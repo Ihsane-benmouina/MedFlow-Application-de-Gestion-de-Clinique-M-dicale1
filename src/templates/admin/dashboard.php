@@ -38,3 +38,17 @@ include __DIR__ . '/../layout/header.php';
         </div>
     </aside>
 
+       <div class="flex-1 space-y-6">
+
+        <!-- Messages -->
+        <?php if (isset($_SESSION['success_msg'])): ?>
+            <div class="bg-emerald-50 text-emerald-700 text-xs font-semibold p-3 rounded-xl border border-emerald-100">
+                <?= htmlspecialchars($_SESSION['success_msg']); unset($_SESSION['success_msg']); ?>
+            </div>
+        <?php endif; ?>
+        <?php if (isset($_SESSION['error_msg'])): ?>
+            <div class="bg-rose-50 text-rose-700 text-xs font-semibold p-3 rounded-xl border border-rose-100">
+                <?= htmlspecialchars($_SESSION['error_msg']); unset($_SESSION['error_msg']); ?>
+            </div>
+        <?php endif; ?> 
+

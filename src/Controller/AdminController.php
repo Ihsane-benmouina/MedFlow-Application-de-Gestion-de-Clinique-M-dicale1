@@ -93,6 +93,39 @@ class AdminController
             header('Location: index.php?action=admin_dashboard');
             exit();
         }
+
+
+         public function modifierMedecin(): void
+    {
+        AuthMiddleware::requireRole('admin');
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!validateCsrfToken()) {
+                header('Location: index.php?action=admin_dashboard');
+                exit();
+            }
+
+            $idMedecin = (int) ($_POST['id_medecin'] ?? 0);
+            $nom = trim($_POST['nom'] ?? '');
+            $prenom = trim($_POST['prenom'] ?? '');
+            $email = trim($_POST['email'] ?? '');
+            $idSpecialite = (int) ($_POST['id_specialite'] ?? 0);
+
+            // Récupérer le médecin pour avoir l'id_user
+            $medecin = $this->medecinRepository->findById($idMedecin);
+            if ($medecin) {
+                // Mettre à jour les infos utilisateur
+                $this->utilisateurRepository->update($medecin['id_user'], $nom, $prenom, $email);
+                // Mettre à jour la spécialité
+                $this->medecinRepository->updateSpecialite($idMedecin, $idSpecialite);
+
+                $_SESSION['success_msg'] = "Médecin modifié avec succès.";
+            }
+
+            header('Location: index.php?action=admin_dashboard');
+            exit();
+        }
+    }
     }
 
 

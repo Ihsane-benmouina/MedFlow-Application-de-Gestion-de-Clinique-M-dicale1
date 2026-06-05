@@ -193,6 +193,53 @@ include __DIR__ . '/../layout/header.php';
                                 </div>
                             </div>
 
+                                                        <!-- Formulaire de modification (masqué par défaut) -->
+                            <div id="edit-form-<?= $med['id_medecin'] ?>" class="hidden mt-4 pt-4 border-t border-slate-100">
+                                <form method="POST" action="index.php?action=admin_modifier_medecin" class="space-y-3">
+                                    <?= csrfTokenField() ?>
+                                    <input type="hidden" name="id_medecin" value="<?= $med['id_medecin'] ?>">
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                        <div>
+                                            <label class="block text-xs font-semibold text-slate-600 mb-1">Nom</label>
+                                            <input type="text" name="nom" value="<?= htmlspecialchars($med['nom']) ?>"
+                                                   class="w-full p-2.5 border border-slate-200 rounded-xl text-sm" required>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-semibold text-slate-600 mb-1">Prénom</label>
+                                            <input type="text" name="prenom" value="<?= htmlspecialchars($med['prenom']) ?>"
+                                                   class="w-full p-2.5 border border-slate-200 rounded-xl text-sm" required>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-semibold text-slate-600 mb-1">Email</label>
+                                        <input type="email" name="email" value="<?= htmlspecialchars($med['email']) ?>"
+                                               class="w-full p-2.5 border border-slate-200 rounded-xl text-sm" required>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-semibold text-slate-600 mb-1">Spécialité</label>
+                                        <select name="id_specialite" class="w-full p-2.5 border border-slate-200 rounded-xl text-sm" required>
+                                            <?php foreach ($listeSpecialites as $spec): ?>
+                                                <option value="<?= $spec['id'] ?>" <?= $spec['id'] == $med['id_specialite'] ? 'selected' : '' ?>>
+                                                    <?= htmlspecialchars($spec['nom']) ?>
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                    <button type="submit"
+                                            class="px-6 py-2.5 bg-purple-600 text-white text-xs font-bold rounded-xl hover:bg-purple-700 cursor-pointer">
+                                        Enregistrer
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+        </div>
+
+    </div>
+</div>
+
 
 
 

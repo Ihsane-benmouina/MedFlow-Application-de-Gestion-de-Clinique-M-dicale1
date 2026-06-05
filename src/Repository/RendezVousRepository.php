@@ -55,7 +55,7 @@ class RendezVousRepository
         return $stmt->fetchAll();
     }
 
-    
+
     /**
      * Récupérer les rendez-vous d'un médecin avec détails
      */
@@ -75,6 +75,7 @@ class RendezVousRepository
         return $stmt->fetchAll();
     }
 
+    
     /**
      * Mettre à jour le statut d'un rendez-vous
      */

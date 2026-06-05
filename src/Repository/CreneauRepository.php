@@ -70,4 +70,11 @@ class CreneauRepository
         return $stmt->execute(['id' => $id]);
     }
 
+   
+    public function marquerDisponible(int $id): bool
+    {
+        $sql = "UPDATE creneaux SET disponible = TRUE WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute(['id' => $id]);
+    }
 }

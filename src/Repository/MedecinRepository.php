@@ -24,4 +24,19 @@ class MedecinRepository
                 ORDER BY u.nom ASC";
         return $this->pdo->query($sql)->fetchAll();
     }
+
+    public function findById(int $idMedecin): ?array
+    {
+        $sql = "SELECT m.id as id_medecin, m.actif, m.id_specialite,
+                       u.id as id_user, u.nom, u.prenom, u.email,
+                       s.nom as specialite_nom
+                FROM medecins m
+                JOIN users u ON m.id_user = u.id
+                JOIN specialites s ON m.id_specialite = s.id
+                WHERE m.id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['id' => $idMedecin]);
+        $result = $stmt->fetch();
+        return $result ?: null;
+    }
 }

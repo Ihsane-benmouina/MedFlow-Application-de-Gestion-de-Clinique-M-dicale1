@@ -64,6 +64,7 @@ class PatientController
         include __DIR__ . '/../../templates/patient/dashboard.php';
     }
 
+    
     /**
      * Réserver un rendez-vous
      */

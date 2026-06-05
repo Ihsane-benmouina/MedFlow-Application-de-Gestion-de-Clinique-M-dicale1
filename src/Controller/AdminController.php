@@ -9,10 +9,7 @@ use App\Repository\RendezVousRepository;
 use App\Middleware\AuthMiddleware;
 use PDO;
 
-/**
- * Contrôleur Admin
- * Gère la création, modification et désactivation des médecins
- */
+
 class AdminController
 {
     private MedecinRepository $medecinRepository;
@@ -29,30 +26,22 @@ class AdminController
     }
 
 
-        /**
-     * Afficher le tableau de bord admin
-     */
+ 
     public function dashboard(): void
     {
-        // Vérifier que l'utilisateur est admin
         AuthMiddleware::requireRole('admin');
 
-        // Statistiques pour le dashboard
         $totalMedecins = $this->medecinRepository->countActifs();
         $totalPatients = $this->utilisateurRepository->countByRole('patient');
         $totalRdv = $this->rendezVousRepository->countAll();
         $rdvEnAttente = $this->rendezVousRepository->countByStatut('En attente');
 
-        // Liste des médecins
         $medecins = $this->medecinRepository->findAll();
 
-        // Spécialités avec comptage
         $specialites = $this->specialiteRepository->countMedecinsParSpecialite();
 
-        // Liste des spécialités pour le formulaire
         $listeSpecialites = $this->specialiteRepository->findAll();
 
-        // Afficher la vue
         include __DIR__ . '/../../templates/admin/dashboard.php';
     }
 
@@ -72,7 +61,6 @@ class AdminController
             $password = $_POST['password'] ?? '';
             $idSpecialite = (int) ($_POST['id_specialite'] ?? 0);
 
-            // Vérifier que l'email n'existe pas
             $existing = $this->utilisateurRepository->findByEmail($email);
             if ($existing) {
                 $_SESSION['error_msg'] = "Cet email est déjà utilisé.";
@@ -80,13 +68,10 @@ class AdminController
                 exit();
             }
 
-            // Hacher le mot de passe
             $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-            // Créer l'utilisateur avec le rôle 'medecin'
             $idUser = $this->utilisateurRepository->create($nom, $prenom, $email, $hashedPassword, 'medecin');
 
-            // Créer l'entrée dans la table medecins
             $this->medecinRepository->create($idUser, $idSpecialite);
 
             $_SESSION['success_msg'] = "Médecin créé avec succès.";
@@ -112,10 +97,8 @@ class AdminController
             $email = trim($_POST['email'] ?? '');
             $idSpecialite = (int) ($_POST['id_specialite'] ?? 0);
 
-            // Récupérer le médecin pour avoir l'id_user
             $medecin = $this->medecinRepository->findById($idMedecin);
             if ($medecin) {
-                // Mettre à jour les infos utilisateur
                 $this->utilisateurRepository->update($medecin['id_user'], $nom, $prenom, $email);
                 // Mettre à jour la spécialité
                 $this->medecinRepository->updateSpecialite($idMedecin, $idSpecialite);
@@ -150,7 +133,6 @@ class AdminController
         AuthMiddleware::requireRole('admin');
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Vérification CSRF (ila knti khdam biha f l-projet)
             if (function_exists('validateCsrfToken') && !validateCsrfToken()) {
                 header('Location: index.php?action=admin_dashboard');
                 exit();

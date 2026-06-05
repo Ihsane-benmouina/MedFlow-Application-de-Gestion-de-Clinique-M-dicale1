@@ -4,10 +4,7 @@ namespace App\Repository;
 
 use PDO;
 
-/**
- * Repository pour la table 'rendez_vous'
- * Toutes les requêtes SQL liées aux rendez-vous sont ici
- */
+
 class RendezVousRepository
 {
     private PDO $pdo;
@@ -17,9 +14,7 @@ class RendezVousRepository
         $this->pdo = $pdo;
     }
 
-    /**
-     * Créer un nouveau rendez-vous
-     */
+    
     public function create(int $idPatient, int $idMedecin, int $idCreneau): int
     {
         $sql = "INSERT INTO rendez_vous (id_patient, id_medecin, id_creneau, statut) 
@@ -34,9 +29,7 @@ class RendezVousRepository
     }
 
 
-    /**
-     * Récupérer les rendez-vous d'un patient avec détails
-     */
+    
     public function findByPatient(int $idPatient): array
     {
         $sql = "SELECT r.id as id_rdv, r.statut, 
@@ -56,9 +49,7 @@ class RendezVousRepository
     }
 
 
-    /**
-     * Récupérer les rendez-vous d'un médecin avec détails
-     */
+    
     public function findByMedecin(int $idMedecin): array
     {
         $sql = "SELECT r.id as id_rdv, r.statut,
@@ -76,9 +67,7 @@ class RendezVousRepository
     }
 
 
-    /**
-     * Mettre à jour le statut d'un rendez-vous
-     */
+   
     public function updateStatut(int $idRdv, string $statut): bool
     {
         $sql = "UPDATE rendez_vous SET statut = :statut WHERE id = :id";
@@ -89,10 +78,7 @@ class RendezVousRepository
         ]);
     }
 
-    /**
-     * 
-     * Trouver un rendez-vous par son ID
-     */
+
     public function findById(int $id): ?array
     {
         $sql = "SELECT r.*, c.heure_debut, c.heure_fin, c.id_medecin
@@ -106,9 +92,7 @@ class RendezVousRepository
     }
 
 
-    /**
-     * Compter les rendez-vous par statut
-     */
+    
     public function countByStatut(string $statut): int
     {
         $sql = "SELECT COUNT(*) as total FROM rendez_vous WHERE statut = :statut";
@@ -117,10 +101,8 @@ class RendezVousRepository
         return (int) $stmt->fetch()['total'];
     }
 
+
     
-    /**
-     * Compter le total des rendez-vous
-     */
     public function countAll(): int
     {
         $sql = "SELECT COUNT(*) as total FROM rendez_vous";

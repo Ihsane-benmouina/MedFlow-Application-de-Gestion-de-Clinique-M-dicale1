@@ -66,9 +66,7 @@ medflow/
 └── README.md
 ```
 ## Diagramm de classe
-![
-    
-](<docs/class diagram clinique.png>)
+![](<docs/class diagram clinique.png>)
 ## Diagramm de cas de utilisation
 ![alt text](<docs/usecase clinique.png>)
 ## ER diagramme

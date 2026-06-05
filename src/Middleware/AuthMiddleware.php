@@ -2,6 +2,7 @@
 
 namespace App\Middleware;
 
+
 class AuthMiddleware
 {
   
@@ -17,7 +18,7 @@ class AuthMiddleware
         }
     }
 
-    
+   
     public static function requireRole(string $role): void
     {
         self::requireLogin();
@@ -37,13 +38,13 @@ class AuthMiddleware
         return isset($_SESSION['user']);
     }
 
-   
+  
     public static function getRole(): string
     {
         return $_SESSION['user']['role'] ?? '';
     }
 
-    
+   
     public static function getUserId(): int
     {
         return (int) ($_SESSION['user']['id'] ?? 0);

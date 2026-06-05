@@ -29,5 +29,34 @@ class AdminController
     }
 
 
-    
+        /**
+     * Afficher le tableau de bord admin
+     */
+    public function dashboard(): void
+    {
+        // Vérifier que l'utilisateur est admin
+        AuthMiddleware::requireRole('admin');
+
+        // Statistiques pour le dashboard
+        $totalMedecins = $this->medecinRepository->countActifs();
+        $totalPatients = $this->utilisateurRepository->countByRole('patient');
+        $totalRdv = $this->rendezVousRepository->countAll();
+        $rdvEnAttente = $this->rendezVousRepository->countByStatut('En attente');
+
+        // Liste des médecins
+        $medecins = $this->medecinRepository->findAll();
+
+        // Spécialités avec comptage
+        $specialites = $this->specialiteRepository->countMedecinsParSpecialite();
+
+        // Liste des spécialités pour le formulaire
+        $listeSpecialites = $this->specialiteRepository->findAll();
+
+        // Afficher la vue
+        include __DIR__ . '/../../templates/admin/dashboard.php';
+    }
+
+
+
+
 }    

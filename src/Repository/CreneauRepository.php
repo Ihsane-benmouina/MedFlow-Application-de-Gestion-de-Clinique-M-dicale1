@@ -38,5 +38,15 @@ class CreneauRepository
         return $stmt->fetchAll();
     }
 
+    
+    public function findById(int $id): ?array
+    {
+        $sql = "SELECT * FROM creneaux WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['id' => $id]);
+        $result = $stmt->fetch();
+        return $result ?: null;
+    }
+
    
 }

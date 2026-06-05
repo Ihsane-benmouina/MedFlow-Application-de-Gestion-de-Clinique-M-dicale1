@@ -48,5 +48,19 @@ class CreneauRepository
         return $result ?: null;
     }
 
+    
+    public function create(string $heureDebut, string $heureFin, int $idMedecin): int
+    {
+        $sql = "INSERT INTO creneaux (heure_debut, heure_fin, disponible, id_medecin) 
+                VALUES (:heure_debut, :heure_fin, TRUE, :id_medecin)";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            'heure_debut' => $heureDebut,
+            'heure_fin' => $heureFin,
+            'id_medecin' => $idMedecin,
+        ]);
+        return (int) $this->pdo->lastInsertId();
+    }
+
    
 }

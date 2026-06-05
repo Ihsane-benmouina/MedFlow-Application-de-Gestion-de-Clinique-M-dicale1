@@ -105,7 +105,7 @@ class RendezVousRepository
         return $result ?: null;
     }
 
-    
+
     /**
      * Compter les rendez-vous par statut
      */
@@ -117,6 +117,7 @@ class RendezVousRepository
         return (int) $stmt->fetch()['total'];
     }
 
+    
     /**
      * Compter le total des rendez-vous
      */

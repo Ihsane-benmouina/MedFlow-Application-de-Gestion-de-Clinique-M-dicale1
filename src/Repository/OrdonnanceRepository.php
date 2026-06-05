@@ -33,7 +33,7 @@ class OrdonnanceRepository
     }
 
 
-    
+
     /**
      * Trouver une ordonnance par son ID
      */
@@ -49,6 +49,7 @@ class OrdonnanceRepository
         return $result ?: null;
     }
 
+    
     /**
      * Récupérer les ordonnances d'un patient
      */

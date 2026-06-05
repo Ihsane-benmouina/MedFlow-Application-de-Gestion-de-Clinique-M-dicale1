@@ -52,3 +52,23 @@ include __DIR__ . '/../layout/header.php';
             </div>
         <?php endif; ?> 
 
+                    <!-- Cartes de statistiques -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs">
+                    <p class="text-xs font-bold text-slate-400 uppercase">Médecins Actifs</p>
+                    <h3 class="text-2xl font-extrabold text-purple-600 mt-1"><?= $totalMedecins ?></h3>
+                </div>
+                <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs">
+                    <p class="text-xs font-bold text-slate-400 uppercase">Patients</p>
+                    <h3 class="text-2xl font-extrabold text-sky-600 mt-1"><?= $totalPatients ?></h3>
+                </div>
+                <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs">
+                    <p class="text-xs font-bold text-slate-400 uppercase">Total RDV</p>
+                    <h3 class="text-2xl font-extrabold text-slate-900 mt-1"><?= $totalRdv ?></h3>
+                </div>
+                <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs">
+                    <p class="text-xs font-bold text-slate-400 uppercase">RDV En Attente</p>
+                    <h3 class="text-2xl font-extrabold text-amber-500 mt-1"><?= $rdvEnAttente ?></h3>
+                </div>
+            </div>
+

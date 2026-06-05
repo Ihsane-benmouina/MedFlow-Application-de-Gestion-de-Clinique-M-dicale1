@@ -33,20 +33,7 @@ class UtilisateurRepository
         return $result ?: null;
     }
 
-    public function create(string $nom, string $prenom, string $email, string $password, string $role): int
-    {
-        $sql = "INSERT INTO users (nom, prenom, email, password, role) 
-                VALUES (:nom, :prenom, :email, :password, :role)";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([
-            'nom' => $nom,
-            'prenom' => $prenom,
-            'email' => $email,
-            'password' => $password,
-            'role' => $role,
-        ]);
-        return (int) $this->pdo->lastInsertId();
-    }
+
 
  
     public function update(int $id, string $nom, string $prenom, string $email): bool

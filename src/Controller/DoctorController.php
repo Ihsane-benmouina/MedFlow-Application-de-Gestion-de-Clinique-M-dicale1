@@ -39,4 +39,16 @@ class SpecialiteRepository
         return (int) $this->pdo->lastInsertId();
     }
 
+       public function countMedecinsParSpecialite(): array
+    {
+        $sql = "SELECT s.id, s.nom, COUNT(m.id) as total_medecins
+                FROM specialites s
+                LEFT JOIN medecins m ON s.id = m.id_specialite AND m.actif = TRUE
+                GROUP BY s.id, s.nom
+                ORDER BY s.nom ASC";
+        return $this->pdo->query($sql)->fetchAll();
+    }
+
+    
+
 }

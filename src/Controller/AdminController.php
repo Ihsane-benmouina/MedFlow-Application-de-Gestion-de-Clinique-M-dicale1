@@ -56,6 +56,49 @@ class AdminController
         include __DIR__ . '/../../templates/admin/dashboard.php';
     }
 
+     public function creerMedecin(): void
+    {
+        AuthMiddleware::requireRole('admin');
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!validateCsrfToken()) {
+                header('Location: index.php?action=admin_dashboard');
+                exit();
+            }
+
+            $nom = trim($_POST['nom'] ?? '');
+            $prenom = trim($_POST['prenom'] ?? '');
+            $email = trim($_POST['email'] ?? '');
+            $password = $_POST['password'] ?? '';
+            $idSpecialite = (int) ($_POST['id_specialite'] ?? 0);
+
+            // Vérifier que l'email n'existe pas
+            $existing = $this->utilisateurRepository->findByEmail($email);
+            if ($existing) {
+                $_SESSION['error_msg'] = "Cet email est déjà utilisé.";
+                header('Location: index.php?action=admin_dashboard');
+                exit();
+            }
+
+            // Hacher le mot de passe
+            $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+
+            // Créer l'utilisateur avec le rôle 'medecin'
+            $idUser = $this->utilisateurRepository->create($nom, $prenom, $email, $hashedPassword, 'medecin');
+
+            // Créer l'entrée dans la table medecins
+            $this->medecinRepository->create($idUser, $idSpecialite);
+
+            $_SESSION['success_msg'] = "Médecin créé avec succès.";
+            header('Location: index.php?action=admin_dashboard');
+            exit();
+        }
+    }
+
+
+
+    
+
 
 
 

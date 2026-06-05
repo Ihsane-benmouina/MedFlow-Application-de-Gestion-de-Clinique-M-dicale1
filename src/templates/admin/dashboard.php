@@ -144,5 +144,39 @@ include __DIR__ . '/../layout/header.php';
             </div>
         </div>
 
+         <!-- ===== TAB 3 : LISTE DES MÉDECINS ===== -->
+        <div id="adm-list" class="hidden space-y-6 adm-tab">
+            <div class="border-b border-slate-200/60 pb-3">
+                <h2 class="text-xl font-extrabold text-slate-900">Liste des Médecins</h2>
+                <p class="text-xs text-slate-400">Gérez, modifiez ou désactivez les comptes médecins.</p>
+            </div>
+
+            <?php if (empty($medecins)): ?>
+                <div class="bg-white p-8 rounded-2xl border border-slate-100 text-center">
+                    <p class="text-sm text-slate-400">Aucun médecin enregistré.</p>
+                </div>
+            <?php else: ?>
+                <div class="space-y-3">
+                    <?php foreach ($medecins as $med): ?>
+                        <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                                <div>
+                                    <h4 class="text-sm font-extrabold text-slate-900">
+                                        Dr. <?= htmlspecialchars($med['prenom'] . ' ' . $med['nom']) ?>
+                                    </h4>
+                                    <p class="text-xs text-purple-600 font-semibold"><?= htmlspecialchars($med['specialite_nom']) ?></p>
+                                    <p class="text-xs text-slate-400"><?= htmlspecialchars($med['email']) ?></p>
+                                    <span class="text-xs font-bold <?= $med['actif'] ? 'text-emerald-600' : 'text-rose-600' ?>">
+                                        <?= $med['actif'] ? 'Actif' : 'Inactif' ?>
+                                    </span>
+                                </div>
+
+                                <div class="flex gap-2 flex-wrap">
+                                    <!-- Bouton Modifier -->
+                                    <button onclick="toggleEditForm(<?= $med['id_medecin'] ?>)"
+                                            class="px-4 py-2 bg-sky-50 text-sky-700 text-xs font-bold rounded-xl border border-sky-100 hover:bg-sky-100 cursor-pointer">
+                                        Modifier
+                                    </button>
+
 
 

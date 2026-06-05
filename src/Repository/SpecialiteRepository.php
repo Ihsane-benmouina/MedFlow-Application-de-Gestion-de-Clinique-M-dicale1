@@ -49,6 +49,26 @@ class SpecialiteRepository
         return $this->pdo->query($sql)->fetchAll();
     }
 
+  
+    public function update(int $id, string $nom, string $description): bool
+    {
+        $sql = "UPDATE specialites SET nom = :nom, description = :description WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute([
+            'id' => $id,
+            'nom' => $nom,
+            'description' => $description,
+        ]);
+    }
+
+   
+    public function delete(int $id): bool
+    {
+        $sql = "DELETE FROM specialites WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute(['id' => $id]);
+    }
+
     
 
     

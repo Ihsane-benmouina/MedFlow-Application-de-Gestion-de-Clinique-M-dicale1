@@ -145,6 +145,86 @@ class AdminController
         exit();
     }
 
+     public function creerSpecialite(): void
+    {
+        AuthMiddleware::requireRole('admin');
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Vérification CSRF (ila knti khdam biha f l-projet)
+            if (function_exists('validateCsrfToken') && !validateCsrfToken()) {
+                header('Location: index.php?action=admin_dashboard');
+                exit();
+            }
+
+            $nom = trim($_POST['nom'] ?? '');
+            $description = trim($_POST['description'] ?? '');
+
+            if (empty($nom)) {
+                $_SESSION['error_msg'] = "Le nom de la spécialité est obligatoire.";
+                header('Location: index.php?action=admin_dashboard');
+                exit();
+            }
+
+            // Appeler directement la méthode create du SpecialiteRepository déjà injecté
+            $this->specialiteRepository->create($nom, $description);
+
+            $_SESSION['success_msg'] = "La spécialité '$nom' a été ajoutée avec succès.";
+            header('Location: index.php?action=admin_dashboard');
+            exit();
+        }
+    }
+    /**
+     * 🌟 Modifier une spécialité existante
+     */
+    public function modifierSpecialite(): void
+    {
+        AuthMiddleware::requireRole('admin');
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = intval($_POST['id_specialite'] ?? 0);
+            $nom = trim($_POST['nom'] ?? '');
+            $description = trim($_POST['description'] ?? '');
+
+            if ($id <= 0 || empty($nom)) {
+                $_SESSION['error_msg'] = "Données invalides pour la modification.";
+                header('Location: index.php?action=admin_dashboard');
+                exit();
+            }
+
+            // Hna t9der t-khdem b query direct f Repository dyalk
+            // b7al: $this->specialiteRepository->update($id, $nom, $description);
+            // ghadi n-ktbha lik b update standard 3la 7sab l-méthode dyalk:
+            $this->specialiteRepository->update($id, $nom, $description);
+
+            $_SESSION['success_msg'] = "La spécialité a été modifiée avec succès.";
+            header('Location: index.php?action=admin_dashboard');
+            exit();
+        }
+    }
+
+    /**
+     * 🌟 Supprimer une spécialité
+     */
+    public function supprimerSpecialite(): void
+    {
+        AuthMiddleware::requireRole('admin');
+
+        $id = intval($_GET['id'] ?? 0);
+
+        if ($id <= 0) {
+            $_SESSION['error_msg'] = "ID de spécialité invalide.";
+            header('Location: index.php?action=admin_dashboard');
+            exit();
+        }
+
+        // Appel de la méthode delete f l-repository dyalk
+        $this->specialiteRepository->delete($id);
+
+        $_SESSION['success_msg'] = "La spécialité a été supprimée avec succès.";
+        header('Location: index.php?action=admin_dashboard');
+        exit();
+    }
+
 
       
 

@@ -93,7 +93,7 @@ class MedecinRepository
                 ORDER BY u.nom ASC";
         $medecins = $this->pdo->query($sql)->fetchAll();
 
-        // Pour chaque médecin, récupérer ses créneaux disponibles
+        
         foreach ($medecins as &$medecin) {
             $sqlCreneaux = "SELECT c.id, c.heure_debut, c.heure_fin
                             FROM creneaux c
@@ -107,6 +107,13 @@ class MedecinRepository
         }
 
         return $medecins;
+    }
+
+        
+    public function countActifs(): int
+    {
+        $sql = "SELECT COUNT(*) as total FROM medecins WHERE actif = TRUE";
+        return (int) $this->pdo->query($sql)->fetch()['total'];
     }
 
 

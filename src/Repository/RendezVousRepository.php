@@ -105,6 +105,7 @@ class RendezVousRepository
         return $result ?: null;
     }
 
+    
     /**
      * Compter les rendez-vous par statut
      */

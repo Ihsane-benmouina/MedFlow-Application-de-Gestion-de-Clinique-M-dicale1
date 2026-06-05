@@ -178,5 +178,22 @@ include __DIR__ . '/../layout/header.php';
                                         Modifier
                                     </button>
 
+                                       <!-- Bouton Activer/Désactiver -->
+                                    <?php if ($med['actif']): ?>
+                                        <a href="index.php?action=admin_toggle_medecin&id=<?= $med['id_medecin'] ?>&toggle=desactiver"
+                                           class="px-4 py-2 bg-rose-50 text-rose-700 text-xs font-bold rounded-xl border border-rose-100 hover:bg-rose-100 no-underline">
+                                            Désactiver
+                                        </a>
+                                    <?php else: ?>
+                                        <a href="index.php?action=admin_toggle_medecin&id=<?= $med['id_medecin'] ?>&toggle=activer"
+                                           class="px-4 py-2 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-xl border border-emerald-100 hover:bg-emerald-100 no-underline">
+                                            Activer
+                                        </a>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+
+
+
 
 

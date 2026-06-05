@@ -13,4 +13,10 @@ class SpecialiteRepository
         $this->pdo = $pdo;
     }
 
+    public function findAll(): array
+    {
+        $sql = "SELECT * FROM specialites ORDER BY nom ASC";
+        return $this->pdo->query($sql)->fetchAll();
+    }
+
 }

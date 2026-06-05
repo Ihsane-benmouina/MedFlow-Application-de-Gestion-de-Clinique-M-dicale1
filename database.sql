@@ -135,3 +135,5 @@ INSERT INTO creneaux (heure_debut, heure_fin, disponible, id_medecin) VALUES
 ('2026-06-05 14:00:00', '2026-06-05 14:30:00', TRUE, 2),
 ('2026-06-06 09:00:00', '2026-06-06 09:30:00', TRUE, 3),
 ('2026-06-06 10:00:00', '2026-06-06 10:30:00', TRUE, 3);
+
+DESCRIBE creneaux;

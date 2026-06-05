@@ -75,7 +75,7 @@ class RendezVousRepository
         return $stmt->fetchAll();
     }
 
-    
+
     /**
      * Mettre à jour le statut d'un rendez-vous
      */
@@ -90,6 +90,7 @@ class RendezVousRepository
     }
 
     /**
+     * 
      * Trouver un rendez-vous par son ID
      */
     public function findById(int $id): ?array

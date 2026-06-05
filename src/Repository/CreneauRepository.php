@@ -63,4 +63,11 @@ class CreneauRepository
     }
 
    
+    public function marquerIndisponible(int $id): bool
+    {
+        $sql = "UPDATE creneaux SET disponible = FALSE WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute(['id' => $id]);
+    }
+
 }

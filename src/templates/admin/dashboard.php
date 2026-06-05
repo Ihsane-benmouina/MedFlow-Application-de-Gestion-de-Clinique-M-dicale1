@@ -256,5 +256,19 @@ function switchAdminTab(tabId) {
 
 
 
+function toggleEditForm(id) {
+    var form = document.getElementById('edit-form-' + id);
+    if (form.classList.contains('hidden')) {
+        form.classList.remove('hidden');
+    } else {
+        form.classList.add('hidden');
+    }
+}
+</script>
+
+<?php include __DIR__ . '/../layout/footer.php'; ?>
+
+
+
 
 

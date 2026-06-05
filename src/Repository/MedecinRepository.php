@@ -69,4 +69,15 @@ class MedecinRepository
         return (int) $this->pdo->lastInsertId();
     }
 
+    public function toggleActif(int $idMedecin, bool $actif): bool
+    {
+        $sql = "UPDATE medecins SET actif = :actif WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute([
+            'actif' => $actif ? 1 : 0,
+            'id' => $idMedecin,
+        ]);
+    }
+
+
 }

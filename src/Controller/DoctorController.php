@@ -19,4 +19,13 @@ class SpecialiteRepository
         return $this->pdo->query($sql)->fetchAll();
     }
 
+        public function findById(int $id): ?array
+    {
+        $sql = "SELECT * FROM specialites WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['id' => $id]);
+        $result = $stmt->fetch();
+        return $result ?: null;
+    }
+
 }

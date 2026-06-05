@@ -39,4 +39,34 @@ class MedecinRepository
         $result = $stmt->fetch();
         return $result ?: null;
     }
+
+
+        public function findByUserId(int $idUser): ?array
+    {
+        $sql = "SELECT m.id as id_medecin, m.actif, m.id_specialite,
+                       u.id as id_user, u.nom, u.prenom, u.email,
+                       s.nom as specialite_nom
+                FROM medecins m
+                JOIN users u ON m.id_user = u.id
+                JOIN specialites s ON m.id_specialite = s.id
+                WHERE m.id_user = :id_user";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['id_user' => $idUser]);
+        $result = $stmt->fetch();
+        return $result ?: null;
+    }
+
+
+     public function create(int $idUser, int $idSpecialite): int
+    {
+        $sql = "INSERT INTO medecins (id_user, id_specialite, actif) 
+                VALUES (:id_user, :id_specialite, TRUE)";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            'id_user' => $idUser,
+            'id_specialite' => $idSpecialite,
+        ]);
+        return (int) $this->pdo->lastInsertId();
+    }
+
 }

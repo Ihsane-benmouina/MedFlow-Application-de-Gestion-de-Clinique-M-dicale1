@@ -68,9 +68,8 @@ class SpecialiteRepository
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute(['id' => $id]);
     }
-
+ }
     
 
     
 
-}

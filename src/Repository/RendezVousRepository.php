@@ -32,6 +32,7 @@ class RendezVousRepository
         ]);
         return (int) $this->pdo->lastInsertId();
     }
+    
 
     /**
      * Récupérer les rendez-vous d'un patient avec détails

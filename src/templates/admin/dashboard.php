@@ -89,3 +89,60 @@ include __DIR__ . '/../layout/header.php';
             </div>
         </div>
 
+
+         <!-- ===== TAB 2 : AJOUTER MÉDECIN ===== -->
+        <div id="adm-add" class="hidden space-y-6 adm-tab">
+            <div class="border-b border-slate-200/60 pb-3">
+                <h2 class="text-xl font-extrabold text-slate-900">Ajouter un Médecin</h2>
+                <p class="text-xs text-slate-400">Créez un nouveau compte médecin pour la clinique.</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-xs">
+                <form method="POST" action="index.php?action=admin_creer_medecin" class="space-y-4">
+                    <?= csrfTokenField() ?>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">Nom</label>
+                            <input type="text" name="nom" placeholder="Nom du médecin"
+                                   class="w-full p-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-purple-500" required>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">Prénom</label>
+                            <input type="text" name="prenom" placeholder="Prénom du médecin"
+                                   class="w-full p-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-purple-500" required>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Email</label>
+                        <input type="email" name="email" placeholder="medecin@medflow.com"
+                               class="w-full p-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-purple-500" required>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Mot de passe</label>
+                        <input type="password" name="password" placeholder="Mot de passe"
+                               class="w-full p-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-purple-500" required>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Spécialité</label>
+                        <select name="id_specialite"
+                                class="w-full p-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-purple-500" required>
+                            <option value="">-- Choisir une spécialité --</option>
+                            <?php foreach ($listeSpecialites as $spec): ?>
+                                <option value="<?= $spec['id'] ?>"><?= htmlspecialchars($spec['nom']) ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+
+                    <button type="submit"
+                            class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs py-3.5 rounded-xl cursor-pointer transition-all">
+                        Créer le médecin
+                    </button>
+                </form>
+            </div>
+        </div>
+
+
+

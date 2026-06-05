@@ -80,4 +80,35 @@ class MedecinRepository
     }
 
 
+     public function findActifsAvecCreneaux(): array
+    {
+        
+        $sql = "SELECT m.id as id_medecin, m.id_specialite,
+                       u.nom, u.prenom,
+                       s.nom as specialite_nom
+                FROM medecins m
+                JOIN users u ON m.id_user = u.id
+                JOIN specialites s ON m.id_specialite = s.id
+                WHERE m.actif = TRUE
+                ORDER BY u.nom ASC";
+        $medecins = $this->pdo->query($sql)->fetchAll();
+
+        // Pour chaque médecin, récupérer ses créneaux disponibles
+        foreach ($medecins as &$medecin) {
+            $sqlCreneaux = "SELECT c.id, c.heure_debut, c.heure_fin
+                            FROM creneaux c
+                            WHERE c.id_medecin = :id_medecin
+                            AND c.disponible = TRUE
+                            AND c.heure_debut >= NOW()
+                            ORDER BY c.heure_debut ASC";
+            $stmt = $this->pdo->prepare($sqlCreneaux);
+            $stmt->execute(['id_medecin' => $medecin['id_medecin']]);
+            $medecin['creneaux'] = $stmt->fetchAll();
+        }
+
+        return $medecins;
+    }
+
+
+
 }

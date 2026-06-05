@@ -72,7 +72,7 @@ class OrdonnanceRepository
         return $stmt->fetchAll();
     }
 
-    
+
     /**
      * Trouver une ordonnance par son rendez-vous
      */
@@ -85,6 +85,7 @@ class OrdonnanceRepository
         return $result ?: null;
     }
 
+    
     /**
      * Modifier le contenu d'une ordonnance
      */

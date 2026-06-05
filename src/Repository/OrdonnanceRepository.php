@@ -4,10 +4,6 @@ namespace App\Repository;
 
 use PDO;
 
-/**
- * Repository pour la table 'ordonnances'
- * Toutes les requêtes SQL liées aux ordonnances sont ici
- */
 class OrdonnanceRepository
 {
     private PDO $pdo;
@@ -17,9 +13,7 @@ class OrdonnanceRepository
         $this->pdo = $pdo;
     }
 
-    /**
-     * Créer une ordonnance pour un rendez-vous
-     */
+  
     public function create(int $idRendezVous, string $description): int
     {
         $sql = "INSERT INTO ordonnances (id_rendez_vous, description) 
@@ -34,9 +28,7 @@ class OrdonnanceRepository
 
 
 
-    /**
-     * Trouver une ordonnance par son ID
-     */
+   
     public function findById(int $id): ?array
     {
         $sql = "SELECT o.*, r.id_patient, r.id_medecin
@@ -50,9 +42,7 @@ class OrdonnanceRepository
     }
 
 
-    /**
-     * Récupérer les ordonnances d'un patient
-     */
+   
     public function findByPatient(int $idPatient): array
     {
         $sql = "SELECT o.id, o.description as contenu, 
@@ -73,9 +63,7 @@ class OrdonnanceRepository
     }
 
 
-    /**
-     * Trouver une ordonnance par son rendez-vous
-     */
+   
     public function findByRendezVous(int $idRendezVous): ?array
     {
         $sql = "SELECT * FROM ordonnances WHERE id_rendez_vous = :id_rdv";
@@ -85,10 +73,8 @@ class OrdonnanceRepository
         return $result ?: null;
     }
 
-    
-    /**
-     * Modifier le contenu d'une ordonnance
-     */
+
+   
     public function updateContenu(int $id, string $description): bool
     {
         $sql = "UPDATE ordonnances SET description = :description WHERE id = :id";

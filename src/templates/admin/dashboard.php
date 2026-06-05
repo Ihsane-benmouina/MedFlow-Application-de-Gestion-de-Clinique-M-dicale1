@@ -72,3 +72,20 @@ include __DIR__ . '/../layout/header.php';
                 </div>
             </div>
 
+
+                        <!-- Spécialités -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-xs space-y-4">
+                <h3 class="font-bold text-slate-900 text-sm">Médecins par Spécialité</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <?php foreach ($specialites as $spec): ?>
+                        <div class="p-4 border border-slate-100 bg-slate-50/50 rounded-xl flex justify-between items-center">
+                            <h4 class="text-sm font-bold text-slate-700"><?= htmlspecialchars($spec['nom']) ?></h4>
+                            <span class="text-xs font-bold bg-white px-2.5 py-1 rounded-md border border-slate-200">
+                                <?= $spec['total_medecins'] ?> médecin(s)
+                            </span>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
+

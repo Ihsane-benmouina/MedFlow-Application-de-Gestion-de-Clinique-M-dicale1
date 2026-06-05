@@ -240,6 +240,20 @@ include __DIR__ . '/../layout/header.php';
     </div>
 </div>
 
+<script>
+
+function switchAdminTab(tabId) {
+    document.querySelectorAll('.adm-tab').forEach(function(tab) {
+        tab.classList.add('hidden');
+    });
+    document.getElementById(tabId).classList.remove('hidden');
+
+    document.querySelectorAll('.adm-nav').forEach(function(btn) {
+        btn.className = 'w-full flex items-center gap-3 px-3 py-3 rounded-xl text-xs font-semibold hover:bg-slate-800/50 hover:text-white cursor-pointer adm-nav';
+    });
+    document.getElementById('btn-' + tabId).className = 'w-full flex items-center gap-3 px-3 py-3 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-purple-500/10 to-purple-500/20 border border-purple-500/20 cursor-pointer adm-nav';
+}
+
 
 
 
